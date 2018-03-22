@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load materializecss %}
+
+{% block form_post %}
+        <div class="row">
+        	<div class="col l3 m3 s3"></div>
+
+        	<div class="col l6 m6 s6">
+        	   <h4>Create Post Here:</h4>
+        	   <hr>	
+        		<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+        	        {{ form|materializecss }}
+                  <input class="waves-effect waves-light btn" type="submit" value="Post">
+            
+                 </form>
+        	</div>
+        	<div class="col l3 m3 s3"></div>
+        	
+        </div>
+        
+{% endblock %}

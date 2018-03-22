@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load urlify %}
+
+{% block detail %}
+    {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+{% endif %}
+<div class="col s12 l12 m12">
+    <h4>{{instance.title|title}}</h4>
+    <small><b>Posted:</b> {{instance.timestamp|timesince}} ago</small>
+    <p>Author: {{ instance.user.get_full_name }}</p>
+
+
+    {% if instance.image %}
+    <img class="materialboxed responsive-img" src="{{ instance.image.url }}">
+    {% endif %}
+</div>
+
+<span class="black-text">
+    {{instance.content|linebreaks}}
+</span> 
+<!-- Social Media Sharable Links -->
+<!-- Facebook -->
+<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+Facebook
+</a>
+<!-- Twitter -->
+<a href="https://twitter.com/home?status={{ instance.content|truncatechars:80|urlify }}%20{{ request.build_absolute_uri }}">
+Twitter
+</a>
+<!-- Google Plus -->
+<a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>Google Plus</a>
+<!-- Linkedin -->
+<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ instance.title }}&summary={{ instance.content|truncatechars:80|urlify }}&source={{ request.build_absolute_uri }}">
+Linkedin
+</a>
+
+{% endblock %}
